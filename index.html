@@ -1,35 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Stable Diffusion Prompt Generator (Updated Full Body)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SD Prompt Generator (Mobile Friendly)</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
-    h2 { color: #2c3e50; }
-    label { font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 15px; }
-    button { padding: 10px 20px; background: #3498db; color: white; border: none; cursor: pointer; }
-    .result { background: #fff; padding: 15px; border: 1px solid #ccc; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 15px;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        max-width: 600px;
+        margin: auto;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h2>📷 Prompt Generator - Stable Diffusion (Full Body Fixed)</h2>
+  <h2>🎨 SD Prompt Generator (Mobile-Friendly)</h2>
 
   <label>Main Subject:</label>
-  <input type="text" id="subject">
+  <input type="text" id="subject" placeholder="e.g. a man in a suit">
 
   <label>Facial Features:</label>
-  <input type="text" id="facial">
+  <input type="text" id="facial" placeholder="e.g. sharp jawline, glowing eyes">
 
   <label>Action / Pose:</label>
-  <input type="text" id="action">
+  <input type="text" id="action" placeholder="e.g. walking confidently">
 
   <label>Scene / Environment:</label>
-  <input type="text" id="scene">
+  <input type="text" id="scene" placeholder="e.g. futuristic city at night">
 
   <label>Lighting / Time of Day:</label>
-  <input type="text" id="lighting">
+  <input type="text" id="lighting" placeholder="e.g. neon lights, dramatic lighting">
 
   <label>📸 Camera Angle & Composition:</label>
   <select id="camera">
@@ -61,7 +111,7 @@
 
   <h3>📋 Prompt Output:</h3>
   <div class="result">
-    <textarea id="output" rows="6" readonly></textarea>
+    <textarea id="output" rows="6" readonly placeholder="Generated prompt will appear here..."></textarea>
   </div>
 
   <script>
