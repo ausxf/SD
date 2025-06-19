@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stable Diffusion Prompt Generator (Updated Full Body)</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+    h2 { color: #2c3e50; }
+    label { font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 15px; }
+    button { padding: 10px 20px; background: #3498db; color: white; border: none; cursor: pointer; }
+    .result { background: #fff; padding: 15px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+
+  <h2>📷 Prompt Generator - Stable Diffusion (Full Body Fixed)</h2>
+
+  <label>Main Subject:</label>
+  <input type="text" id="subject">
+
+  <label>Facial Features:</label>
+  <input type="text" id="facial">
+
+  <label>Action / Pose:</label>
+  <input type="text" id="action">
+
+  <label>Scene / Environment:</label>
+  <input type="text" id="scene">
+
+  <label>Lighting / Time of Day:</label>
+  <input type="text" id="lighting">
+
+  <label>📸 Camera Angle & Composition:</label>
+  <select id="camera">
+    <option value="">-- Select Camera Angle --</option>
+    <option value="close-up, focused face">📸 Close-up</option>
+    <option value="low angle, powerful view">🐜 Low Angle</option>
+    <option value="high angle, overview perspective">🦅 High Angle</option>
+    <option value="wide shot, background visible">🎥 Wide Shot</option>
+    <option value="overhead view, top down">🌀 Overhead / Top Down</option>
+    <option value="full body shot, standing, full view from head to toe, visible legs and feet">🧍 Full Body Shot (Head to Toe)</option>
+    <option value="macro shot, high detail">🔍 Macro Shot</option>
+    <option value="bokeh background, depth effect">🌫️ Bokeh Blur Background</option>
+    <option value="cinematic composition, film-like framing">🎬 Cinematic Composition</option>
+    <option value="depth of field, blurry background">🔬 Depth of Field</option>
+  </select>
+
+  <label>🎯 Style & Quality Package:</label>
+  <select id="package">
+    <option value="">-- Select Style Package --</option>
+    <option value="photorealistic, 8k, ultra detail, cinematic lighting, masterpiece">🎬 Photorealistic (HD)</option>
+    <option value="oil painting, rich brush strokes, high contrast, baroque style">🎨 Oil Painting</option>
+    <option value="fantasy art, epic, concept art, digital painting, vibrant">🧝‍♀️ Fantasy Concept Art</option>
+    <option value="cyberpunk, neon lights, futuristic, highly detailed, 4k">🌆 Cyberpunk Night</option>
+    <option value="portrait, soft lighting, shallow depth of field, DSLR quality">🧑‍🎤 Portrait Beauty Shot</option>
+    <option value="anime style, colorful, dynamic shading, cel-shading">🎌 Anime Style</option>
+  </select>
+
+  <button onclick="generatePrompt()">Generate Prompt</button>
+
+  <h3>📋 Prompt Output:</h3>
+  <div class="result">
+    <textarea id="output" rows="6" readonly></textarea>
+  </div>
+
+  <script>
+    function generatePrompt() {
+      const subject = document.getElementById("subject").value;
+      const facial = document.getElementById("facial").value;
+      const action = document.getElementById("action").value;
+      const scene = document.getElementById("scene").value;
+      const lighting = document.getElementById("lighting").value;
+      const camera = document.getElementById("camera").value;
+      const pack = document.getElementById("package").value;
+
+      const parts = [
+        subject,
+        facial ? `with ${facial}` : '',
+        action,
+        `in ${scene}`,
+        lighting,
+        camera,
+        pack
+      ];
+
+      const prompt = parts.filter(Boolean).join(', ');
+      document.getElementById("output").value = prompt;
+    }
+  </script>
+
+</body>
+</html>
