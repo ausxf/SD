@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SD Prompt Generator (Smart Negative)</title>
+  <title>SD Prompt Generator (Complete)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,125 +10,107 @@
       margin: 0;
       padding: 15px;
       color: #333;
-    }
+    }h2 {
+  text-align: center;
+  color: #2c3e50;
+}
 
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-    }
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+}
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 12px;
-    }
+input, select, textarea, button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
 
-    input, select, textarea, button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-top: 6px;
-      margin-bottom: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-    }
+button {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
 
-    button {
-      background-color: #3498db;
-      color: white;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
+button:hover {
+  background-color: #2980b9;
+}
 
-    button:hover {
-      background-color: #2980b9;
-    }
+.result {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
 
-    .result {
-      background: #fff;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
+#aspect-recommendation {
+  background: #eee;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+}
 
-    @media (min-width: 768px) {
-      body {
-        max-width: 600px;
-        margin: auto;
-      }
-    }
+@media (min-width: 768px) {
+  body {
+    max-width: 600px;
+    margin: auto;
+  }
+}
+
   </style>
 </head>
-<body>
+<body>  <h2>🧠 SD Prompt Generator (Complete)</h2><label>📌 Subject Category:</label> <select id="category" onchange="updateNegativePrompt()"> <option value="">-- Select Category --</option> <option value="human">👩 Human</option> <option value="animal">🐶 Animal</option> <option value="landscape">🏞️ Landscape</option> <option value="fantasy">🐉 Fantasy Creature</option> <option value="robot">🤖 Robot / Mecha</option> </select>
 
-  <h2>🧠 SD Prompt Generator + Smart Negative Prompt</h2>
+<label>Main Subject:</label> <input type="text" id="subject" placeholder="e.g. a woman drinking coffee">
 
-  <label>📌 Subject Category:</label>
-  <select id="category" onchange="updateNegativePrompt()">
-    <option value="">-- Select Category --</option>
-    <option value="human">👩 Human</option>
-    <option value="animal">🐶 Animal</option>
-    <option value="landscape">🏞️ Landscape</option>
-    <option value="fantasy">🐉 Fantasy Creature</option>
-    <option value="robot">🤖 Robot / Mecha</option>
-  </select>
+<label>Facial Features:</label> <input type="text" id="facial" placeholder="e.g. freckles, glowing eyes">
 
-  <label>Main Subject:</label>
-  <input type="text" id="subject" placeholder="e.g. a woman drinking coffee">
+<label>Action / Pose:</label> <input type="text" id="action" placeholder="e.g. sitting at a table">
 
-  <label>Facial Features:</label>
-  <input type="text" id="facial" placeholder="e.g. freckles, glowing eyes">
+<label>Scene / Environment:</label> <input type="text" id="scene" placeholder="e.g. in a romantic hotel room">
 
-  <label>Action / Pose:</label>
-  <input type="text" id="action" placeholder="e.g. sitting at a table">
+<label>Lighting / Time of Day:</label> <input type="text" id="lighting" placeholder="e.g. night, candlelight, warm tones">
 
-  <label>Scene / Environment:</label>
-  <input type="text" id="scene" placeholder="e.g. in a romantic hotel room">
+<label>📸 Camera Angle & Composition:</label> <select id="camera"> <option value="">-- Select Camera Angle --</option> <option value="close-up, focused face">📸 Close-up</option> <option value="low angle, powerful view">🐜 Low Angle</option> <option value="high angle, overview perspective">🦅 High Angle</option> <option value="wide shot, background visible">🎥 Wide Shot</option> <option value="overhead view, top down">🌀 Overhead / Top Down</option> <option value="full body shot, standing, full view from head to toe, visible legs and feet">🧍 Full Body Shot</option> <option value="macro shot, high detail">🔍 Macro Shot</option> <option value="bokeh background, depth effect">🌫️ Bokeh Blur Background</option> <option value="cinematic composition, film-like framing">🎬 Cinematic Composition</option> <option value="depth of field, blurry background">🔬 Depth of Field</option> </select>
 
-  <label>Lighting / Time of Day:</label>
-  <input type="text" id="lighting" placeholder="e.g. night, candlelight, warm tones">
+<label>📐 Recommended Aspect Ratio:</label>
 
-  <label>📸 Camera Angle & Composition:</label>
-  <select id="camera">
-    <option value="">-- Select Camera Angle --</option>
-    <option value="close-up, focused face">📸 Close-up</option>
-    <option value="low angle, powerful view">🐜 Low Angle</option>
-    <option value="high angle, overview perspective">🦅 High Angle</option>
-    <option value="wide shot, background visible">🎥 Wide Shot</option>
-    <option value="overhead view, top down">🌀 Overhead / Top Down</option>
-    <option value="full body shot, standing, full view from head to toe, visible legs and feet">🧍 Full Body Shot (Head to Toe)</option>
-    <option value="macro shot, high detail">🔍 Macro Shot</option>
-    <option value="bokeh background, depth effect">🌫️ Bokeh Blur Background</option>
-    <option value="cinematic composition, film-like framing">🎬 Cinematic Composition</option>
-    <option value="depth of field, blurry background">🔬 Depth of Field</option>
-  </select>
+  <div id="aspect-recommendation">
+    <i>Choose a camera angle to see suggestion</i>
+  </div><label>🎯 Style & Quality Package:</label> <select id="package"> <option value="">-- Select Style Package --</option> <option value="photorealistic, 8k, ultra detail, cinematic lighting, masterpiece">🎬 Photorealistic (HD)</option> <option value="oil painting, rich brush strokes, high contrast, baroque style">🎨 Oil Painting</option> <option value="fantasy art, epic, concept art, digital painting, vibrant">🧝‍♀️ Fantasy Concept Art</option> <option value="cyberpunk, neon lights, futuristic, highly detailed, 4k">🌆 Cyberpunk Night</option> <option value="portrait, soft lighting, shallow depth of field, DSLR quality">🧑‍🎤 Portrait Beauty Shot</option> <option value="anime style, colorful, dynamic shading, cel-shading">🎌 Anime Style</option> </select>
 
-  <label>🎯 Style & Quality Package:</label>
-  <select id="package">
-    <option value="">-- Select Style Package --</option>
-    <option value="photorealistic, 8k, ultra detail, cinematic lighting, masterpiece">🎬 Photorealistic (HD)</option>
-    <option value="oil painting, rich brush strokes, high contrast, baroque style">🎨 Oil Painting</option>
-    <option value="fantasy art, epic, concept art, digital painting, vibrant">🧝‍♀️ Fantasy Concept Art</option>
-    <option value="cyberpunk, neon lights, futuristic, highly detailed, 4k">🌆 Cyberpunk Night</option>
-    <option value="portrait, soft lighting, shallow depth of field, DSLR quality">🧑‍🎤 Portrait Beauty Shot</option>
-    <option value="anime style, colorful, dynamic shading, cel-shading">🎌 Anime Style</option>
-  </select>
-
-  <button onclick="generatePrompt()">Generate Prompt</button>
+<button onclick="generatePrompt()">Generate Prompt</button>
 
   <h3>📋 Positive Prompt Output:</h3>
   <div class="result">
     <textarea id="output" rows="5" readonly></textarea>
-  </div>
-
-  <h3>🚫 Negative Prompt (Auto):</h3>
+  </div>  <h3>🚫 Negative Prompt (Auto):</h3>
   <div class="result">
     <textarea id="negative" rows="4" readonly></textarea>
-  </div>
+  </div>  <script>
+    document.getElementById("camera").addEventListener("change", function () {
+      const camera = this.value.toLowerCase();
+      const aspectBox = document.getElementById("aspect-recommendation");
 
-  <script>
+      if (camera.includes("full body") || camera.includes("head to toe") || camera.includes("standing")) {
+        aspectBox.innerHTML = "✅ <b>Recommended:</b> <span style='color:#2c3e50'>Portrait – 576x1024 or 768x1344</span> (for full body shots)";
+      } else if (camera.includes("wide") || camera.includes("cinematic") || camera.includes("landscape")) {
+        aspectBox.innerHTML = "✅ <b>Recommended:</b> <span style='color:#2c3e50'>Wide – 1024x576 or 1344x768</span> (for wide scenes)";
+      } else if (camera.includes("close-up") || camera.includes("macro") || camera.includes("portrait")) {
+        aspectBox.innerHTML = "✅ <b>Recommended:</b> <span style='color:#2c3e50'>Square – 768x768 or 1024x1024</span> (for face or detail)";
+      } else {
+        aspectBox.innerHTML = "<i>No specific recommendation. Use default: 768x768</i>";
+      }
+    });
+
     function updateNegativePrompt() {
       const category = document.getElementById("category").value;
       let negative = "";
@@ -179,7 +160,5 @@
       const prompt = parts.filter(Boolean).join(', ');
       document.getElementById("output").value = prompt;
     }
-  </script>
-
-</body>
+  </script></body>
 </html>
