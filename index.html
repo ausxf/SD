@@ -73,6 +73,8 @@ button:hover {
 
 <label>Facial Features:</label> <input type="text" id="facial" placeholder="e.g. freckles, glowing eyes">
 
+<label>Clothing & Style:</label> <input type="text" id="clothing" placeholder="e.g. wearing a red dress, leather jacket, jeans, boots">
+
 <label>Action / Pose:</label> <input type="text" id="action" placeholder="e.g. sitting at a table">
 
 <label>Scene / Environment:</label> <input type="text" id="scene" placeholder="e.g. in a romantic hotel room">
@@ -141,6 +143,7 @@ button:hover {
     function generatePrompt() {
       const subject = document.getElementById("subject").value;
       const facial = document.getElementById("facial").value;
+      const clothing = document.getElementById("clothing").value;
       const action = document.getElementById("action").value;
       const scene = document.getElementById("scene").value;
       const lighting = document.getElementById("lighting").value;
@@ -150,6 +153,7 @@ button:hover {
       const parts = [
         subject,
         facial ? `with ${facial}` : '',
+        clothing,
         action,
         `in ${scene}`,
         lighting,
